@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{650a53b3-a5a6-491e-86b5-15cc244e1a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform">
+      <UniqueIdentifier>{44912710-1172-4b20-9aad-f896851bd4b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Renderer">
+      <UniqueIdentifier>{d5e32779-01d5-4694-b034-84c2f68c8de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\LoggerAssertions">
+      <UniqueIdentifier>{11cf41ca-5fe6-40a7-8329-2c9b5a862cdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Application">
+      <UniqueIdentifier>{b3f0aae6-ff5f-4df3-b20b-47041e93c50f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{6fe43cb7-918e-4b0e-827c-dac0f20aaab4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="platform_win32.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Source Files\Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>Source Files\Core\LoggerAssertions</Filter>
+    </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>Source Files\Core\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="defines.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>Source Files\Core\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>Source Files\Core\LoggerAssertions</Filter>
+    </ClInclude>
+    <ClInclude Include="platform.h">
+      <Filter>Source Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="application.h">
+      <Filter>Source Files\Core\Application</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
