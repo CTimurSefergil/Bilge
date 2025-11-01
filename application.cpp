@@ -14,9 +14,11 @@ extern b8 game_update(f64 delta_time);
 extern void game_render();
 extern void game_shutdown();
 
+// TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
+ElapsedTime elapsed_time;
+
 b8 application_create(ApplicationConfig config)
 {
-    // Initialize logging system first
     if (!initialize_logging())
     {
         BFATAL("Failed to initialize logging system");
@@ -26,13 +28,11 @@ b8 application_create(ApplicationConfig config)
     BINFO("=== Application Starting ===");
     BINFO("Application: %s", config.name);
 
-    // Initialize application state
     app_state.is_running = TRUE;
     app_state.is_suspended = FALSE;
     app_state.last_time = 0.0;
     app_state.renderer = NULL;
 
-    // Initialize platform layer
     if (!platform_startup(&app_state.platform, config.name,
         config.start_pos_x, config.start_pos_y,
         config.start_width, config.start_height))
@@ -42,10 +42,8 @@ b8 application_create(ApplicationConfig config)
         return FALSE;
     }
 
-    // Get render state from platform
     platform_get_render_state(&app_state.renderer);
 
-    // Initialize renderer
     if (!initialize_renderer(app_state.renderer))
     {
         BFATAL("Failed to initialize renderer");
@@ -54,7 +52,6 @@ b8 application_create(ApplicationConfig config)
         return FALSE;
     }
 
-    // Initialize game layer
     if (!game_initialize())
     {
         BFATAL("Failed to initialize game layer");
@@ -63,6 +60,10 @@ b8 application_create(ApplicationConfig config)
         shutdown_logging();
         return FALSE;
     }
+
+    // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
+    elapsed_time.tp1 = std::chrono::system_clock::now();
+    elapsed_time.tp2 = std::chrono::system_clock::now();
 
     BINFO("Application initialized successfully");
     return TRUE;
@@ -74,7 +75,6 @@ b8 application_run()
 
     while (app_state.is_running)
     {
-        // Process platform messages
         if (!platform_pump_messages(&app_state.platform))
         {
             app_state.is_running = FALSE;
@@ -83,20 +83,19 @@ b8 application_run()
 
         if (!app_state.is_suspended)
         {
-            // Calculate delta time (simplified for now)
-            f64 current_time = 0.0; // TODO: Get actual time from platform
-            f64 delta_time = current_time - app_state.last_time;
-            app_state.last_time = current_time;
+            // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
+            elapsed_time.tp2 = std::chrono::system_clock::now();
+            std::chrono::duration<float> delta_time = elapsed_time.tp2 - elapsed_time.tp1;
+            elapsed_time.tp1 = elapsed_time.tp2;
+            float dt = delta_time.count();
 
-            // Update game logic
-            if (!game_update(delta_time))
+            if (!game_update(dt))
             {
                 BFATAL("Game update failed");
                 app_state.is_running = FALSE;
                 break;
             }
 
-            // Render frame
             game_render();
         }
     }

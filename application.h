@@ -3,8 +3,18 @@
 #include "defines.h"
 #include "platform.h"
 
+#include <chrono>
+
+
 // Forward declaration
 struct RenderState;
+
+// TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
+struct ElapsedTime
+{
+    std::chrono::system_clock::time_point tp1;
+    std::chrono::system_clock::time_point tp2;
+};
 
 struct ApplicationConfig
 {

@@ -3,6 +3,9 @@
 #include "application.h"
 #include "renderer.h"
 
+//TODO: Kendi INPUT sistemime gecis
+#include <iostream>
+
 // BURASI KOMPLE APPLICATON TABAKASINA ATILABILIR
 static RenderState* render_state = NULL;
 
@@ -30,8 +33,28 @@ b8 game_initialize()
     return TRUE;
 }
 
+static f32 pos_x = 1000.0f;
+static f32 pos_y = 400.0f;
+
 b8 game_update(f64 delta_time)
 {
+    f32 speed = 300.0f;
+    f32 movement = (f32)(delta_time * speed);
+
+    //TODO: Kendi INPUT sistemime gecis
+    if (GetAsyncKeyState((unsigned short)'W') & 0x8000) {
+        pos_y += movement;
+    }
+    if (GetAsyncKeyState((unsigned short)'A') & 0x8000) {
+        pos_x -= movement; 
+    }
+    if (GetAsyncKeyState((unsigned short)'S') & 0x8000) {
+        pos_y -= movement;
+    }
+    if (GetAsyncKeyState((unsigned short)'D') & 0x8000) {
+        pos_x += movement;
+    }
+
     return TRUE;
 }
 
@@ -48,7 +71,7 @@ void game_render()
     draw_rectangle(*render_state, 100, 100, 700, 700, 0x54267);
     draw_rectangle(*render_state, 500, 500, 100, 100, 0x313162);
 
-    draw_rectangle(*render_state, 1000, 400, 300, 250, 0x648563);
+    draw_rectangle(*render_state, pos_x, pos_y, 300, 250, 0x648563);
 }
 
 void game_shutdown()
