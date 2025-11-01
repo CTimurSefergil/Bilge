@@ -3,10 +3,11 @@
 #include "application.h"
 #include "renderer.h"
 
+// BURASI KOMPLE APPLICATON TABAKASINA ATILABILIR
 static RenderState* render_state = NULL;
 
 
-// BURASI KOMPLE APPL?CATON TABAKASINA ATILAB?L?R
+// BURASI KOMPLE APPLICATON TABAKASINA ATILABILIR
 b8 game_initialize()
 {
     BINFO("Initializing game layer");
@@ -46,6 +47,8 @@ void game_render()
 
     draw_rectangle(*render_state, 100, 100, 700, 700, 0x54267);
     draw_rectangle(*render_state, 500, 500, 100, 100, 0x313162);
+
+    draw_rectangle(*render_state, 1000, 400, 300, 250, 0x648563);
 }
 
 void game_shutdown()
