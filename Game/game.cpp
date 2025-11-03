@@ -68,7 +68,7 @@ int main()
     ApplicationConfig config = {};
     config.start_pos_x = 100;
     config.start_pos_y = 100;
-    config.start_width = 1200;
+    config.start_width = 1000;
     config.start_height = 800;
     config.name = "Game Engine";
 

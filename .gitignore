@@ -399,3 +399,34 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+build/ZERO_CHECK.vcxproj.filters
+build/ZERO_CHECK.vcxproj
+build/CMakeFiles/TargetDirectories.txt
+build/CMakeFiles/InstallScripts.json
+build/CMakeFiles/generate.stamp.list
+build/CMakeFiles/generate.stamp.depend
+build/CMakeFiles/generate.stamp
+build/CMakeFiles/CMakeConfigureLog.yaml
+build/CMakeFiles/cmake.check_cache
+build/CMakeFiles/8e5b793b1536a2a3726abc09db62a3ef/generate.stamp.rule
+build/CMakeFiles/4.1.0/VCTargetsPath.vcxproj
+build/CMakeFiles/4.1.0/VCTargetsPath.txt
+build/CMakeFiles/4.1.0/CompilerIdCXX/CompilerIdCXX.vcxproj
+build/CMakeFiles/4.1.0/CompilerIdCXX/CompilerIdCXX.exe
+build/CMakeFiles/4.1.0/CompilerIdCXX/CMakeCXXCompilerId.cpp
+build/CMakeFiles/4.1.0/CompilerIdC/CompilerIdC.vcxproj
+build/CMakeFiles/4.1.0/CompilerIdC/CompilerIdC.exe
+build/CMakeFiles/4.1.0/CompilerIdC/CMakeCCompilerId.c
+build/CMakeFiles/4.1.0/CMakeSystem.cmake
+build/CMakeFiles/4.1.0/CMakeRCCompiler.cmake
+build/CMakeFiles/4.1.0/CMakeDetermineCompilerABI_CXX.bin
+build/CMakeFiles/4.1.0/CMakeDetermineCompilerABI_C.bin
+build/CMakeFiles/4.1.0/CMakeCXXCompiler.cmake
+build/CMakeFiles/4.1.0/CMakeCCompiler.cmake
+build/CMakeCache.txt
+build/cmake_install.cmake
+build/Bilge.vcxproj.filters
+build/Bilge.vcxproj
+build/Bilge.sln
+build/ALL_BUILD.vcxproj.filters
+build/ALL_BUILD.vcxproj
