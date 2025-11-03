@@ -1,7 +1,7 @@
 #include "application.h"
-#include "logger.h"
-#include "platform.h"
-#include "renderer.h"
+#include "..\Logger\logger.h"
+#include "..\..\Platform\platform.h"
+#include "..\Renderer\renderer.h"
 
 #include <string.h>
 
@@ -31,7 +31,6 @@ b8 application_create(ApplicationConfig config)
     app_state.is_running = TRUE;
     app_state.is_suspended = FALSE;
     app_state.last_time = 0.0;
-    app_state.renderer = NULL;
 
     if (!platform_startup(&app_state.platform, config.name,
         config.start_pos_x, config.start_pos_y,
@@ -42,9 +41,7 @@ b8 application_create(ApplicationConfig config)
         return FALSE;
     }
 
-    platform_get_render_state(&app_state.renderer);
-
-    if (!initialize_renderer(app_state.renderer))
+    if (!initialize_renderer())
     {
         BFATAL("Failed to initialize renderer");
         platform_shutdown(&app_state.platform);
@@ -55,7 +52,7 @@ b8 application_create(ApplicationConfig config)
     if (!game_initialize())
     {
         BFATAL("Failed to initialize game layer");
-        shutdown_renderer(app_state.renderer);
+        shutdown_renderer();
         platform_shutdown(&app_state.platform);
         shutdown_logging();
         return FALSE;
@@ -103,24 +100,14 @@ b8 application_run()
     BINFO("=== Application Shutting Down ===");
 
     game_shutdown();
-    shutdown_renderer(app_state.renderer);
+    shutdown_renderer();
     platform_shutdown(&app_state.platform);
     shutdown_logging();
 
     return TRUE;
 }
 
-void application_get_render_state(RenderState** out_render_state)
-{
-    *out_render_state = app_state.renderer;
-}
-
 void application_request_shutdown()
 {
     app_state.is_running = FALSE;
-}
-
-b8 application_is_running()
-{
-    return app_state.is_running;
 }

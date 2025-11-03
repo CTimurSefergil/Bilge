@@ -1,13 +1,9 @@
 #pragma once
 
-#include "defines.h"
-#include "platform.h"
+#include "..\..\defines.h"
+#include "..\..\Platform\platform.h"
 
 #include <chrono>
-
-
-// Forward declaration
-struct RenderState;
 
 // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
 struct ElapsedTime
@@ -30,15 +26,10 @@ struct ApplicationState
     b8 is_running;
     b8 is_suspended;
     PlatformState platform;
-    RenderState* renderer; // Changed to pointer
     f64 last_time;
 };
 
-// Application lifecycle functions
 b8 application_create(ApplicationConfig config);
 b8 application_run();
 
-// Application utility functions
-void application_get_render_state(RenderState** out_render_state);
 void application_request_shutdown();
-b8 application_is_running();

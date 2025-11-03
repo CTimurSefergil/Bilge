@@ -1,35 +1,25 @@
-#include "defines.h"
-#include "logger.h"
-#include "application.h"
-#include "renderer.h"
+#include "../Engine/defines.h"
+#include "../Engine/Core/Logger/logger.h"
+#include "../Engine/Core/Application/application.h"
+#include "../Engine/Core/Renderer/renderer.h"
 
 //TODO: Kendi INPUT sistemime gecis
 #include <iostream>
 
-// BURASI KOMPLE APPLICATON TABAKASINA ATILABILIR
-static RenderState* render_state = NULL;
-
-
-// BURASI KOMPLE APPLICATON TABAKASINA ATILABILIR
 b8 game_initialize()
 {
     BINFO("Initializing game layer");
 
-    application_get_render_state(&render_state);
-
-    if (!render_state)
-    {
-        BERROR("Failed to get render state from application");
-        return FALSE;
-    }
-
     BINFO("Game layer initialized successfully");
+
+
     BFATAL("BFATAL");
     BERROR("BERROR");
     BWARN("BWARN");
     BDEBUG("BDEBUG");
     BINFO("BINFO");
     BTRACE("BTRACE");
+
     return TRUE;
 }
 
@@ -38,7 +28,7 @@ static f32 pos_y = 400.0f;
 
 b8 game_update(f64 delta_time)
 {
-    f32 speed = 300.0f;
+    f32 speed = 800.0f;
     f32 movement = (f32)(delta_time * speed);
 
     //TODO: Kendi INPUT sistemime gecis
@@ -60,24 +50,17 @@ b8 game_update(f64 delta_time)
 
 void game_render()
 {
-    if (!render_state)
-    {
-        BERROR("Render state is null, cannot render");
-        return;
-    }
+    render_background(0x12345);
 
-    render_background(*render_state, 0x12345);
+    draw_rectangle(100, 100, 700, 700, 0x54267);
+    draw_rectangle(500, 500, 100, 100, 0x313162);
 
-    draw_rectangle(*render_state, 100, 100, 700, 700, 0x54267);
-    draw_rectangle(*render_state, 500, 500, 100, 100, 0x313162);
-
-    draw_rectangle(*render_state, pos_x, pos_y, 300, 250, 0x648563);
+    draw_rectangle((u32)pos_x, (u32)pos_y, 300, 250, 0x648563);
 }
 
 void game_shutdown()
 {
     BINFO("Shutting down game layer");
-    render_state = NULL;
 }
 
 int main()

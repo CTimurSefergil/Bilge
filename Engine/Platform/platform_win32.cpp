@@ -1,9 +1,9 @@
 #include <windows.h>
 #include <stdio.h>
 
-#include "defines.h"
-#include "renderer.h"
-#include "logger.h"
+#include "..\defines.h"
+#include "..\Core\Renderer\renderer.h"
+#include "..\Core\Logger\logger.h"
 #include "platform.h"
 
 // Win32 internal state
