@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\defines.h"
+#include "defines.h"
 
 #define LOG_WARN_ENABLED 1
 #define LOG_INFO_ENABLED 1
@@ -23,10 +23,10 @@ typedef enum log_level
     LOG_LEVEL_TRACE = 5 
 } log_level;
 
-b8 initialize_logging();
-void shutdown_logging();
+BILGE_API b8 initialize_logging();
+BILGE_API void shutdown_logging();
 
-void log_output(log_level level, const char* message, ...);
+BILGE_API void log_output(log_level level, const char* message, ...);
 
 // Logs a fatal-level message.
 #define BFATAL(message, ...) log_output(LOG_LEVEL_FATAL, message, ##__VA_ARGS__);

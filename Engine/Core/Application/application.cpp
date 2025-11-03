@@ -1,24 +1,23 @@
 #include "application.h"
-#include "..\Logger\logger.h"
-#include "..\..\Platform\platform.h"
-#include "..\Renderer\renderer.h"
+#include "logger.h"
+#include "Platform\platform.h"
+#include "renderer.h"
 
 #include <string.h>
 
-// Application state (private to this module)
 static ApplicationState app_state;
-
-// Forward declaration for game interface
-extern b8 game_initialize();
-extern b8 game_update(f64 delta_time);
-extern void game_render();
-extern void game_shutdown();
 
 // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
 ElapsedTime elapsed_time;
 
 b8 application_create(ApplicationConfig config)
 {
+    if (!config.game_interface)
+    {
+        BFATAL("Game interface is null");
+        return FALSE;
+    }
+
     if (!initialize_logging())
     {
         BFATAL("Failed to initialize logging system");
@@ -31,6 +30,7 @@ b8 application_create(ApplicationConfig config)
     app_state.is_running = TRUE;
     app_state.is_suspended = FALSE;
     app_state.last_time = 0.0;
+    app_state.game_interface = config.game_interface;
 
     if (!platform_startup(&app_state.platform, config.name,
         config.start_pos_x, config.start_pos_y,
@@ -49,7 +49,7 @@ b8 application_create(ApplicationConfig config)
         return FALSE;
     }
 
-    if (!game_initialize())
+    if (!app_state.game_interface->initialize())
     {
         BFATAL("Failed to initialize game layer");
         shutdown_renderer();
@@ -86,20 +86,20 @@ b8 application_run()
             elapsed_time.tp1 = elapsed_time.tp2;
             float dt = delta_time.count();
 
-            if (!game_update(dt))
+            if (!app_state.game_interface->update(dt))
             {
                 BFATAL("Game update failed");
                 app_state.is_running = FALSE;
                 break;
             }
 
-            game_render();
+            app_state.game_interface->render();
         }
     }
 
     BINFO("=== Application Shutting Down ===");
 
-    game_shutdown();
+    app_state.game_interface->shutdown();
     shutdown_renderer();
     platform_shutdown(&app_state.platform);
     shutdown_logging();

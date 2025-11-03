@@ -19,3 +19,9 @@ typedef double f64;
 // Boolean types
 typedef int b32;
 typedef char b8;
+
+#ifdef BILGE_ENGINE_EXPORTS
+#define BILGE_API __declspec(dllexport)
+#else
+#define BILGE_API __declspec(dllimport)
+#endif

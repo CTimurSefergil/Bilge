@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\defines.h"
+#include "defines.h"
 
 // Forward declarations
 struct RenderState;
@@ -22,9 +22,8 @@ b8 platform_startup
     i32 height
 );
 
-void platform_shutdown(PlatformState* platform_state);
+BILGE_API void platform_shutdown(PlatformState* platform_state);
 
-b8 platform_pump_messages(PlatformState* platform_state);
+BILGE_API b8 platform_pump_messages(PlatformState* platform_state);
 
-// Platform utility functions
-void platform_get_render_state(RenderState** out_render_state);
+BILGE_API void platform_get_render_state(RenderState** out_render_state);

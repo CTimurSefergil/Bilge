@@ -1,5 +1,5 @@
 #pragma once
-#include "..\..\defines.h"
+#include "defines.h"
 #include <windows.h>
 
 struct RenderState
@@ -9,9 +9,9 @@ struct RenderState
     BITMAPINFO buffer_bitmap_info;
 };
 
-b8 initialize_renderer();
-void shutdown_renderer();
+BILGE_API b8 initialize_renderer();
+BILGE_API void shutdown_renderer();
 
-void render_background(int color);
-void draw_rectangle(u32 pos_x, u32 pos_y, u32 width, u32 height, int color);
-void reset_renderer_error_state();
+BILGE_API void render_background(int color);
+BILGE_API void draw_rectangle(u32 pos_x, u32 pos_y, u32 width, u32 height, int color);
+BILGE_API void reset_renderer_error_state();

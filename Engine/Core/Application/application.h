@@ -1,7 +1,8 @@
 #pragma once
 
-#include "..\..\defines.h"
-#include "..\..\Platform\platform.h"
+#include "defines.h"
+#include "Platform\platform.h"
+#include "game_interface.h"
 
 #include <chrono>
 
@@ -19,6 +20,7 @@ struct ApplicationConfig
     i16 start_width;
     i16 start_height;
     const char* name;
+    GameInterface* game_interface; 
 };
 
 struct ApplicationState
@@ -27,9 +29,10 @@ struct ApplicationState
     b8 is_suspended;
     PlatformState platform;
     f64 last_time;
+    GameInterface* game_interface;
 };
 
-b8 application_create(ApplicationConfig config);
-b8 application_run();
+BILGE_API b8 application_create(ApplicationConfig config);
+BILGE_API b8 application_run();
 
-void application_request_shutdown();
+BILGE_API void application_request_shutdown();

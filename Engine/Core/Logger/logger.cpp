@@ -1,5 +1,5 @@
 #include "logger.h"
-#include "..\..\defines.h"
+#include "defines.h"
 
 #include <io.h>
 #include <fcntl.h>

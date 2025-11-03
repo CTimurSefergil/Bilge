@@ -1,17 +1,20 @@
-#include "../Engine/defines.h"
-#include "../Engine/Core/Logger/logger.h"
-#include "../Engine/Core/Application/application.h"
-#include "../Engine/Core/Renderer/renderer.h"
+#include "defines.h"
+#include "Core/Logger/logger.h"
+#include "Core/Application/application.h"
+#include "Core/Renderer/renderer.h"
+#include "Core/Application/game_interface.h"
 
 //TODO: Kendi INPUT sistemime gecis
 #include <iostream>
+#include <windows.h>
+
+static f32 pos_x = 1000.0f;
+static f32 pos_y = 400.0f;
 
 b8 game_initialize()
 {
     BINFO("Initializing game layer");
-
     BINFO("Game layer initialized successfully");
-
 
     BFATAL("BFATAL");
     BERROR("BERROR");
@@ -23,12 +26,9 @@ b8 game_initialize()
     return TRUE;
 }
 
-static f32 pos_x = 1000.0f;
-static f32 pos_y = 400.0f;
-
 b8 game_update(f64 delta_time)
 {
-    f32 speed = 800.0f;
+    f32 speed = 1000.f;
     f32 movement = (f32)(delta_time * speed);
 
     //TODO: Kendi INPUT sistemime gecis
@@ -36,7 +36,7 @@ b8 game_update(f64 delta_time)
         pos_y += movement;
     }
     if (GetAsyncKeyState((unsigned short)'A') & 0x8000) {
-        pos_x -= movement; 
+        pos_x -= movement;
     }
     if (GetAsyncKeyState((unsigned short)'S') & 0x8000) {
         pos_y -= movement;
@@ -63,6 +63,19 @@ void game_shutdown()
     BINFO("Shutting down game layer");
 }
 
+static GameInterface s_game_interface = {
+    game_initialize,
+    game_update,
+    game_render,
+    game_shutdown
+};
+
+// Define the function without BILGE_API (it's not part of the DLL interface)
+GameInterface* get_game_interface()
+{
+    return &s_game_interface;
+}
+
 int main()
 {
     ApplicationConfig config = {};
@@ -71,6 +84,7 @@ int main()
     config.start_width = 1000;
     config.start_height = 800;
     config.name = "Game Engine";
+    config.game_interface = get_game_interface();
 
     if (!application_create(config))
     {

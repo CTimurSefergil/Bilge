@@ -1,9 +1,9 @@
 #include <windows.h>
 
-#include "..\..\defines.h"
+#include "defines.h"
 #include "renderer.h"
-#include "..\Logger\logger.h"
-#include "..\..\Platform\platform.h"
+#include "logger.h"
+#include "Platform\platform.h"
 
 static b8 rectangle_error_logged = 0;
 
