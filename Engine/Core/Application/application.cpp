@@ -1,7 +1,7 @@
-#include "application.h"
-#include "logger.h"
-#include "Platform\platform.h"
-#include "renderer.h"
+#include "Core/Application/application.h"
+#include "Core/Logger/logger.h"
+#include "Platform/platform.h"
+#include "Core/Renderer/renderer.h"
 
 #include <string.h>
 

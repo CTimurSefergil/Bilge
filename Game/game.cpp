@@ -2,7 +2,7 @@
 #include "Core/Logger/logger.h"
 #include "Core/Application/application.h"
 #include "Core/Renderer/renderer.h"
-#include "Core/Application/game_interface.h"
+#include "game_interface.h"
 
 //TODO: Kendi INPUT sistemime gecis
 #include <iostream>
@@ -28,7 +28,7 @@ b8 game_initialize()
 
 b8 game_update(f64 delta_time)
 {
-    f32 speed = 1000.f;
+    f32 speed = 2000.f;
     f32 movement = (f32)(delta_time * speed);
 
     //TODO: Kendi INPUT sistemime gecis
@@ -70,7 +70,6 @@ static GameInterface s_game_interface = {
     game_shutdown
 };
 
-// Define the function without BILGE_API (it's not part of the DLL interface)
 GameInterface* get_game_interface()
 {
     return &s_game_interface;
@@ -83,7 +82,7 @@ int main()
     config.start_pos_y = 100;
     config.start_width = 1000;
     config.start_height = 800;
-    config.name = "Game Engine";
+    config.name = "Simulation";
     config.game_interface = get_game_interface();
 
     if (!application_create(config))

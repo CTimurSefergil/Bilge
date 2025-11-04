@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 #include "defines.h"
-#include "Core\Renderer\renderer.h"
-#include "Core\Logger\logger.h"
-#include "platform.h"
+#include "Core/Renderer/renderer.h"
+#include "Core/Logger/logger.h"
+#include "Platform/platform.h"
 
 // Win32 internal state
 struct Win32InternalState

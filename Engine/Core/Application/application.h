@@ -1,7 +1,7 @@
 #pragma once
 
 #include "defines.h"
-#include "Platform\platform.h"
+#include "Platform/platform.h"
 #include "game_interface.h"
 
 #include <chrono>

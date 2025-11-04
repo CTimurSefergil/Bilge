@@ -8,27 +8,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# Engine source files
-set(ENGINE_SOURCES
-    Engine/Core/Application/application.cpp
-    Engine/Core/Logger/logger.cpp
-    Engine/Core/Renderer/renderer.cpp
-    Engine/Platform/platform_win32.cpp
+# Automatically collect all Engine source files
+file(GLOB_RECURSE ENGINE_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/Engine/*.cpp"
 )
 
-# Game source files
-set(GAME_SOURCES
-    Game/game.cpp
+# Automatically collect all Engine header files
+file(GLOB_RECURSE ENGINE_HEADERS CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/Engine/*.h"
 )
 
-# Engine headers
-set(ENGINE_HEADERS
-    Engine/defines.h
-    Engine/Core/Application/application.h
-    Engine/Core/Application/game_interface.h
-    Engine/Core/Logger/logger.h
-    Engine/Core/Renderer/renderer.h
-    Engine/Platform/platform.h
+# Automatically collect all Game source files
+file(GLOB_RECURSE GAME_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/Game/*.cpp"
+)
+
+# Automatically collect all Game header files
+file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/Game/*.h"
 )
 
 # Build Engine as DLL
@@ -37,13 +34,9 @@ add_library(BilgeEngine SHARED ${ENGINE_SOURCES} ${ENGINE_HEADERS})
 # Engine compile definitions
 target_compile_definitions(BilgeEngine PRIVATE BILGE_ENGINE_EXPORTS)
 
-# Include directories for Engine
+# Include Engine directory - all headers use relative paths from Engine/
 target_include_directories(BilgeEngine PRIVATE
-    Engine
-    Engine/Core/Logger
-    Engine/Core/Application
-    Engine/Core/Renderer
-    Engine/Platform
+    ${CMAKE_SOURCE_DIR}/Engine
 )
 
 # Link Windows libraries to Engine
@@ -52,19 +45,15 @@ if(WIN32)
 endif()
 
 # Build Game as executable
-add_executable(BilgeGame ${GAME_SOURCES})
+add_executable(BilgeGame ${GAME_SOURCES} ${GAME_HEADERS})
 
 # Game needs to import from engine DLL
 target_compile_definitions(BilgeGame PRIVATE BILGE_ENGINE_IMPORTS)
 
-# Include directories for Game
+# Include directories for Game - all headers use relative paths
 target_include_directories(BilgeGame PRIVATE
-    Engine
-    Engine/Core/Logger
-    Engine/Core/Application
-    Engine/Core/Renderer
-    Engine/Platform
-    Game
+    ${CMAKE_SOURCE_DIR}/Engine
+    ${CMAKE_SOURCE_DIR}/Game
 )
 
 # Link Game to Engine DLL
