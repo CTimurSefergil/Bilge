@@ -3,6 +3,7 @@
 #include "Platform/platform.h"
 #include "Core/Renderer/renderer.h"
 
+// TODO: KENDİ STRİNG KÜTÜPHANEM 
 #include <string.h>
 
 static ApplicationState app_state;
@@ -58,7 +59,7 @@ b8 application_create(ApplicationConfig config)
         return FALSE;
     }
 
-    // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
+    // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR
     elapsed_time.tp1 = std::chrono::system_clock::now();
     elapsed_time.tp2 = std::chrono::system_clock::now();
 
@@ -80,7 +81,7 @@ b8 application_run()
 
         if (!app_state.is_suspended)
         {
-            // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
+            // TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR 
             elapsed_time.tp2 = std::chrono::system_clock::now();
             std::chrono::duration<float> delta_time = elapsed_time.tp2 - elapsed_time.tp1;
             elapsed_time.tp1 = elapsed_time.tp2;

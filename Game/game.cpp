@@ -11,9 +11,23 @@
 static f32 pos_x = 1000.0f;
 static f32 pos_y = 400.0f;
 
+
+/*
+String, Hashmap ... ??? - 
+[
+Duvar3, Duvar3, Duvar2,Duvar2,Yer0,Yer0,Yer1,
+Duvar2, Duvar3, Duvar2,Duvar2,Yer0,Yer0,Yer1,
+Yer0,   Yer0,   Yer0,  Yer0,  Yer1,Yer1,Yer1
+]
+*/
+/*
+Oyuncunun pozisyonu sabit kalsa, 
+çevresindeki sabit sayıda kare, 
+oyuncunun girdisine göre kordinat 
+değerlerini değiştirse...
+*/
 b8 game_initialize()
 {
-    BINFO("Initializing game layer");
     BINFO("Game layer initialized successfully");
 
     BFATAL("BFATAL");
@@ -63,11 +77,12 @@ void game_shutdown()
     BINFO("Shutting down game layer");
 }
 
-static GameInterface s_game_interface = {
+static GameInterface s_game_interface = 
+{
     game_initialize,
     game_update,
-    game_render,
-    game_shutdown
+    game_shutdown,
+    game_render
 };
 
 GameInterface* get_game_interface()

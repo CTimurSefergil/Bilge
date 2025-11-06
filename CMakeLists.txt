@@ -8,23 +8,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+# Disable automatic reconfiguration on file changes
+set(CMAKE_SUPPRESS_REGENERATION TRUE)
+
 # Automatically collect all Engine source files
-file(GLOB_RECURSE ENGINE_SOURCES CONFIGURE_DEPENDS
+file(GLOB_RECURSE ENGINE_SOURCES
     "${CMAKE_SOURCE_DIR}/Engine/*.cpp"
 )
 
 # Automatically collect all Engine header files
-file(GLOB_RECURSE ENGINE_HEADERS CONFIGURE_DEPENDS
+file(GLOB_RECURSE ENGINE_HEADERS
     "${CMAKE_SOURCE_DIR}/Engine/*.h"
 )
 
 # Automatically collect all Game source files
-file(GLOB_RECURSE GAME_SOURCES CONFIGURE_DEPENDS
+file(GLOB_RECURSE GAME_SOURCES
     "${CMAKE_SOURCE_DIR}/Game/*.cpp"
 )
 
 # Automatically collect all Game header files
-file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS
+file(GLOB_RECURSE GAME_HEADERS
     "${CMAKE_SOURCE_DIR}/Game/*.h"
 )
 
@@ -35,7 +38,7 @@ add_library(BilgeEngine SHARED ${ENGINE_SOURCES} ${ENGINE_HEADERS})
 target_compile_definitions(BilgeEngine PRIVATE BILGE_ENGINE_EXPORTS)
 
 # Include Engine directory - all headers use relative paths from Engine/
-target_include_directories(BilgeEngine PRIVATE
+target_include_directories(BilgeEngine PUBLIC
     ${CMAKE_SOURCE_DIR}/Engine
 )
 
@@ -46,9 +49,6 @@ endif()
 
 # Build Game as executable
 add_executable(BilgeGame ${GAME_SOURCES} ${GAME_HEADERS})
-
-# Game needs to import from engine DLL
-target_compile_definitions(BilgeGame PRIVATE BILGE_ENGINE_IMPORTS)
 
 # Include directories for Game - all headers use relative paths
 target_include_directories(BilgeGame PRIVATE
@@ -69,10 +69,8 @@ else()
 endif()
 
 # Copy Engine DLL to Game directory
-if(WIN32)
-    add_custom_command(TARGET BilgeGame POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:BilgeEngine>
-        $<TARGET_FILE_DIR:BilgeGame>
-    )
-endif()
+add_custom_command(TARGET BilgeEngine POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    $<TARGET_FILE:BilgeEngine>
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+)
