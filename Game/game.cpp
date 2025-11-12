@@ -3,6 +3,8 @@
 #include "Core/Application/application.h"
 #include "Core/Renderer/renderer.h"
 #include "game_interface.h"
+#include "level_generator.h"
+
 
 //TODO: Kendi INPUT sistemime gecis
 #include <iostream>
@@ -11,15 +13,12 @@
 static f32 pos_x = 1000.0f;
 static f32 pos_y = 400.0f;
 
+TileMap tile_map[] = {
+    {Wall, 2},   {Wall, 2},   {Ground, 0},
+    {Wall, 2},   {Player, 0}, {Ground, 0},
+    {Ground, 0}, {Ground, 0}, {Ground, 0},
+};
 
-/*
-String, Hashmap ... ??? - 
-[
-Duvar3, Duvar3, Duvar2,Duvar2,Yer0,Yer0,Yer1,
-Duvar2, Duvar3, Duvar2,Duvar2,Yer0,Yer0,Yer1,
-Yer0,   Yer0,   Yer0,  Yer0,  Yer1,Yer1,Yer1
-]
-*/
 /*
 Oyuncunun pozisyonu sabit kalsa, 
 çevresindeki sabit sayıda kare, 
@@ -30,13 +29,16 @@ b8 game_initialize()
 {
     BINFO("Game layer initialized successfully");
 
+/*    
     BFATAL("BFATAL");
     BERROR("BERROR");
     BWARN("BWARN");
     BDEBUG("BDEBUG");
     BINFO("BINFO");
     BTRACE("BTRACE");
-
+*/
+    u32 tile_count = sizeof(tile_map) / sizeof(tile_map[0]);
+    read_and_create_level(tile_map, tile_count, 3, 0, 0, 0, 0);
     return TRUE;
 }
 
