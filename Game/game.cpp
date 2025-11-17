@@ -5,7 +5,6 @@
 #include "game_interface.h"
 #include "level_generator.h"
 
-
 //TODO: Kendi INPUT sistemime gecis
 #include <iostream>
 #include <windows.h>
@@ -13,10 +12,15 @@
 static f32 pos_x = 1000.0f;
 static f32 pos_y = 400.0f;
 
-TileMap tile_map[] = {
-    {Wall, 2},   {Wall, 2},   {Ground, 0},
-    {Wall, 2},   {Player, 0}, {Ground, 0},
-    {Ground, 0}, {Ground, 0}, {Ground, 0},
+TileMap tile_map[] = 
+{
+    Null, Null,   Null,   Null,   Null,   Null,   Null,
+    Null, Ground, Ground, Ground, Ground, Ground, Null,
+    Null, Ground, Wall,   Wall,   Wall,   Ground, Null,
+    Null, Ground, Wall,   Player, Wall,   Ground, Null,
+    Null, Ground, Wall,   Wall,   Wall,   Ground, Null,
+    Null, Ground, Ground, Ground, Ground, Ground, Null,
+    Null, Null,   Null,   Null,   Null,   Null,   Null,
 };
 
 /*
@@ -25,11 +29,12 @@ Oyuncunun pozisyonu sabit kalsa,
 oyuncunun girdisine göre kordinat 
 değerlerini değiştirse...
 */
+
 b8 game_initialize()
 {
     BINFO("Game layer initialized successfully");
 
-/*    
+/*
     BFATAL("BFATAL");
     BERROR("BERROR");
     BWARN("BWARN");
@@ -37,8 +42,100 @@ b8 game_initialize()
     BINFO("BINFO");
     BTRACE("BTRACE");
 */
+    
     u32 tile_count = sizeof(tile_map) / sizeof(tile_map[0]);
-    read_and_create_level(tile_map, tile_count, 3, 0, 0, 0, 0);
+    TileMapCompleteRules rules = read_and_find_rules(tile_map, tile_count, 7, 0, 0, 0, 0);
+    
+    BDEBUG("Total tile types with rules: %u", (u32)rules.type_rules.size());
+    
+    for(u32 i = 0; i < rules.type_rules.size(); i++)
+    {
+        TileMapTypeRules& rule = rules.type_rules[i];
+        const char* type_name = "";
+        switch(rule.type)
+        {
+            case TileType::Wall: type_name = "Wall"; break;
+            case TileType::Ground: type_name = "Ground"; break;
+            case TileType::Player: type_name = "Player"; break;
+            case TileType::Null: type_name = "Null"; break;
+            default: type_name = "Unknown"; break;
+        }
+        
+        BFATAL("Rules for %s:", type_name);
+        
+        if(rule.x_minus_neighbors.size() > 0)
+        {
+            BTRACE("  X-minus neighbors: ");
+            for(auto& neighbor : rule.x_minus_neighbors)
+            {
+                const char* neighbor_name = "";
+                switch(neighbor)
+                {
+                    case TileType::Wall: neighbor_name = "Wall"; break;
+                    case TileType::Ground: neighbor_name = "Ground"; break;
+                    case TileType::Player: neighbor_name = "Player"; break;
+                    case TileType::Null: neighbor_name = "Null"; break;
+                    default: neighbor_name = "Unknown"; break;
+                }
+                BDEBUG("    - %s", neighbor_name);
+            }
+        }
+        
+        if(rule.x_plus_neighbors.size() > 0)
+        {
+            BTRACE("  X-plus neighbors: ");
+            for(auto& neighbor : rule.x_plus_neighbors)
+            {
+                const char* neighbor_name = "";
+                switch(neighbor)
+                {
+                    case TileType::Wall: neighbor_name = "Wall"; break;
+                    case TileType::Ground: neighbor_name = "Ground"; break;
+                    case TileType::Player: neighbor_name = "Player"; break;
+                    case TileType::Null: neighbor_name = "Null"; break;
+                    default: neighbor_name = "Unknown"; break;
+                }
+                BDEBUG("    - %s", neighbor_name);
+            }
+        }
+        
+        if(rule.y_minus_neighbors.size() > 0)
+        {
+            BTRACE("  Y-minus neighbors: ");
+            for(auto& neighbor : rule.y_minus_neighbors)
+            {
+                const char* neighbor_name = "";
+                switch(neighbor)
+                {
+                    case TileType::Wall: neighbor_name = "Wall"; break;
+                    case TileType::Ground: neighbor_name = "Ground"; break;
+                    case TileType::Player: neighbor_name = "Player"; break;
+                    case TileType::Null: neighbor_name = "Null"; break;
+                    default: neighbor_name = "Unknown"; break;
+                }
+                BDEBUG("    - %s", neighbor_name);
+            }
+        }
+        
+        if(rule.y_plus_neighbors.size() > 0)
+        {
+            BTRACE("  Y-plus neighbors: ");
+            for(auto& neighbor : rule.y_plus_neighbors)
+            {
+                const char* neighbor_name = "";
+                switch(neighbor)
+                {
+                    case TileType::Wall: neighbor_name = "Wall"; break;
+                    case TileType::Ground: neighbor_name = "Ground"; break;
+                    case TileType::Player: neighbor_name = "Player"; break;
+                    case TileType::Null: neighbor_name = "Null"; break;
+                    default: neighbor_name = "Unknown"; break;
+                }
+                BDEBUG("    - %s", neighbor_name);
+            }
+        }
+    }
+    
     return TRUE;
 }
 
