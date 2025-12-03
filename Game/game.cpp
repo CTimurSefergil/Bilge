@@ -7,7 +7,6 @@
 
 //TODO: Kendi INPUT sistemime gecis
 #include <iostream>
-#include <windows.h>
 
 static f32 pos_x = 1000.0f;
 static f32 pos_y = 400.0f;
@@ -23,13 +22,6 @@ TileMap tile_map[] =
     Null, Null,   Null,   Null,   Null,   Null,   Null,
 };
 
-/*
-Oyuncunun pozisyonu sabit kalsa, 
-çevresindeki sabit sayıda kare, 
-oyuncunun girdisine göre kordinat 
-değerlerini değiştirse...
-*/
-
 b8 game_initialize()
 {
     BINFO("Game layer initialized successfully");
@@ -44,9 +36,7 @@ b8 game_initialize()
 */
     
     u32 tile_count = sizeof(tile_map) / sizeof(tile_map[0]);
-    TileMapCompleteRules rules = read_and_find_rules(tile_map, tile_count, 7, 0, 0, 0, 0);
-    
-    BDEBUG("Total tile types with rules: %u", (u32)rules.type_rules.size());
+    TileMapCompleteRules rules = read_and_find_rules(tile_map, tile_count, 7);
     
     for(u32 i = 0; i < rules.type_rules.size(); i++)
     {

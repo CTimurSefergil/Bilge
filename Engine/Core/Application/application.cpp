@@ -2,13 +2,14 @@
 #include "Core/Logger/logger.h"
 #include "Platform/platform.h"
 #include "Core/Renderer/renderer.h"
+#include "Core/ECS/ecs.h"
 
 // TODO: KENDİ STRİNG KÜTÜPHANEM 
 #include <string.h>
 
 static ApplicationState app_state;
 
-// TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO
+// TODO: FARKLI BIR SISTEM HALINE GETIRILEBILIR :TODO       
 ElapsedTime elapsed_time;
 
 b8 application_create(ApplicationConfig config)
@@ -39,6 +40,12 @@ b8 application_create(ApplicationConfig config)
     {
         BFATAL("Failed to initialize platform layer");
         shutdown_logging();
+        return FALSE;
+    }
+
+    if (!initialize_ecs())
+    {
+        BFATAL("Failed to initialize ecs system");
         return FALSE;
     }
 

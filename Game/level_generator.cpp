@@ -1,6 +1,6 @@
 #include "level_generator.h"
 
-TileMapCompleteRules read_and_find_rules(TileMap tile_map[], u32 tile_count, u32 string_axis_length, u32 start_pos_x, u32 start_pos_y, u32 width, u32 height)
+TileMapCompleteRules read_and_find_rules(TileMap tile_map[], u32 tile_count, u32 string_axis_length)
 {
     TileMapCompleteRules complete_rules;
     
